@@ -1,0 +1,23 @@
+# Demo — appbuilder project configuration for the AppKit example.
+
+[bundle]
+name = "Demo"                       # the bundle: Demo.app
+display_name = "Demo"
+identifier = "org.lynxos.demo"
+version = "0.1.0"
+build = 1
+executable = "Demo"
+icon = "AppIcon.png"
+
+[build]
+# AppKit + Qt 6 Widgets (the vendored Sources/AppKit.*; -fPIC is required
+# when linking against Qt 6, and x11 for the WM caption protocol).
+command = ["sh", "-c",
+  "g++ -O2 -fPIC -std=c++17 -o {out} Sources/main.cpp Sources/AppKit.cpp $(pkg-config --cflags --libs Qt6Widgets x11)"]
+
+[info]
+# Extra keys, copied verbatim into Contents/Info.json; the standard
+# about panel reads them (see guide_PRIVATE/SDK-guides/aboutAppGeneric.png):
+# description under the app name, copyright at the bottom.
+NSApplicationDescription = "A lynxOS demo app"
+NSHumanReadableCopyright = "© 2026 Example Software. All Rights Reserved."
