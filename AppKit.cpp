@@ -138,6 +138,23 @@ void NSSetWindowCompactTitlebar(QWidget *widget, bool compact)
     XCloseDisplay(d);
 }
 
+void NSSetWindowUnifiedToolbar(QWidget *widget, bool unified)
+{
+    /* The unified look of macOS X's textured windows (Finder, System
+       Preferences, ...): the caption's bottom separator is painted with
+       the title background's continuing color, so the caption and the
+       app's toolbar (drawn right below, starting with the same color)
+       read as one gradient. Set before the window is shown; see
+       framerender.c in WindowServerWM. */
+    Display *d = XOpenDisplay(nullptr);
+    if (!d || !widget) return;
+    const Atom a = XInternAtom(d, "_LYNX_WM_UNIFIED_TOOLBAR", False);
+    const unsigned long v = unified ? 1 : 0;
+    XChangeProperty(d, widget->winId(), a, XA_CARDINAL, 32,
+                    PropModeReplace, (unsigned char *)&v, 1);
+    XCloseDisplay(d);
+}
+
 /* ------------------------------------------------------------------ */
 /* The system menu bar (SystemUIServer)                               */
 /*                                                                    */

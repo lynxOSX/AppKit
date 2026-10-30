@@ -171,6 +171,13 @@ private:
     first manages the window). */
 void NSSetWindowCompactTitlebar(QWidget *widget, bool compact = true);
 
+/*! Asks WindowServerWM for the unified look (macOS X's textured windows):
+    the caption flows into the app's toolbar with no separator line. Paint
+    the toolbar right under the caption, starting with the caption's
+    bottom color (#DED8D2 active / #DEDEDE inactive). Sets the
+    _LYNX_WM_UNIFIED_TOOLBAR property; call BEFORE the window is shown. */
+void NSSetWindowUnifiedToolbar(QWidget *widget, bool unified = true);
+
 /* ------------------------------------------------------------------ */
 /* NSAlert — a modal alert (10.6 SDK naming).                         */
 
